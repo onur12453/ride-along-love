@@ -45,15 +45,15 @@ export function Shell({ children }: { children: ReactNode }) {
 
       <header className="sticky top-0 z-40 bg-card/95 backdrop-blur border-b">
         <div className="mx-auto max-w-7xl px-4 py-3 flex items-center gap-3">
-          <Link to="/" className="flex items-center gap-2 font-display font-bold text-xl text-primary" aria-label="Engelsiz Yol ana sayfa">
+          <Link to="/" className="flex items-center gap-2 font-display font-bold text-xl text-primary whitespace-nowrap" aria-label="Engelsiz Yol ana sayfa">
             <span className="grid place-items-center size-10 rounded-xl bg-hero text-primary-foreground">
               <Accessibility aria-hidden />
             </span>
             Engelsiz Yol
           </Link>
-          <nav aria-label="Ana menü" className="hidden xl:flex gap-1 ml-4">
+          <nav aria-label="Ana menü" className="hidden xl:flex gap-0.5 ml-2">
             {NAV.map((n) => (
-              <Link key={n.to} to={n.to} className="px-3 py-2 rounded-lg font-semibold hover:bg-secondary" activeProps={{ className: "bg-secondary text-primary" }} activeOptions={{ exact: true }}>
+              <Link key={n.to} to={n.to} className="px-2.5 py-2 rounded-lg font-semibold text-base whitespace-nowrap hover:bg-secondary" activeProps={{ className: "bg-secondary text-primary" }} activeOptions={{ exact: true }}>
                 {n.label}
               </Link>
             ))}
