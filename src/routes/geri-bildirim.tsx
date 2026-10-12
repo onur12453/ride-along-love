@@ -28,7 +28,7 @@ function Page() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const r = schema.safeParse({ subject, message });
-    if (!r.success) return setErr(r.error.issues[0].message);
+    if (!r.success) return setErr(r.error.issues[0]?.message ?? "Hata");
     setErr("");
     setState((s) => ({ complaints: [{ id: uid("S"), type, ...r.data, status: "acik", date: new Date().toISOString().slice(0, 10) }, ...s.complaints] }));
     setS(""); setM("");

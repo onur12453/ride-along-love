@@ -26,7 +26,7 @@ export interface RideRequest {
   companion: boolean;
   note: string;
   status: Status;
-  volunteerId?: string;
+  volunteerId?: string | undefined;
   passengerOk: boolean;
   volunteerOk: boolean;
   mine?: boolean;

@@ -79,11 +79,11 @@ function Talep() {
         <FreeBadge text="Bu hizmet tamamen ÜCRETSİZDİR. Hiçbir gönüllü sizden ücret talep edemez." />
         <form onSubmit={submit} noValidate className="card p-6 md:p-8 grid gap-6" aria-label="Ulaşım talep formu">
           <div className="grid md:grid-cols-[2fr_1fr] gap-4">
-            <div><label htmlFor="from" className="font-bold text-lg">Nereden alınacak?</label><input id="from" className="field mt-1" value={f.from} onChange={up("from")} placeholder="Örn: Örnek Sokak No:1" aria-invalid={!!err.from} /><Err k="from" /></div>
+            <div><label htmlFor="from" className="font-bold text-lg">Nereden alınacak?</label><input id="from" className="field mt-1" value={f.from} onChange={up("from")} placeholder="Örn: Örnek Sokak No:1" aria-invalid={!!err["from"]} /><Err k="from" /></div>
             <div><label htmlFor="fd" className="font-bold text-lg">İlçe</label><select id="fd" className="field mt-1" value={f.fromDistrict} onChange={up("fromDistrict")}>{DISTRICTS.map((d) => <option key={d}>{d}</option>)}</select></div>
           </div>
           <div className="grid md:grid-cols-[2fr_1fr] gap-4">
-            <div><label htmlFor="to" className="font-bold text-lg">Nereye bırakılacak?</label><input id="to" className="field mt-1" value={f.to} onChange={up("to")} placeholder="Örn: Örnek Hastanesi" aria-invalid={!!err.to} /><Err k="to" /></div>
+            <div><label htmlFor="to" className="font-bold text-lg">Nereye bırakılacak?</label><input id="to" className="field mt-1" value={f.to} onChange={up("to")} placeholder="Örn: Örnek Hastanesi" aria-invalid={!!err["to"]} /><Err k="to" /></div>
             <div><label htmlFor="td" className="font-bold text-lg">İlçe</label><select id="td" className="field mt-1" value={f.toDistrict} onChange={up("toDistrict")}>{DISTRICTS.map((d) => <option key={d}>{d}</option>)}</select></div>
           </div>
           <p className="text-muted-foreground -mt-3">🔒 Açık adresiniz herkese gösterilmez; yalnızca karşılıklı onaydan sonra eşleşen gönüllüyle paylaşılır.</p>
