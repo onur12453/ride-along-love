@@ -10,12 +10,37 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GeriBildirimRouteImport } from './routes/geri-bildirim'
+import { Route as GonulluRouteImport } from './routes/gonullu'
+import { Route as NasilCalisirRouteImport } from './routes/nasil-calisir'
+import { Route as SssRouteImport } from './routes/sss'
 import { Route as TakipRouteImport } from './routes/takip'
 import { Route as TalepRouteImport } from './routes/talep'
+import { Route as YoneticiRouteImport } from './routes/yonetici'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GeriBildirimRoute = GeriBildirimRouteImport.update({
+  id: '/geri-bildirim',
+  path: '/geri-bildirim',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GonulluRoute = GonulluRouteImport.update({
+  id: '/gonullu',
+  path: '/gonullu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NasilCalisirRoute = NasilCalisirRouteImport.update({
+  id: '/nasil-calisir',
+  path: '/nasil-calisir',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SssRoute = SssRouteImport.update({
+  id: '/sss',
+  path: '/sss',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TakipRoute = TakipRouteImport.update({
@@ -28,35 +53,85 @@ const TalepRoute = TalepRouteImport.update({
   path: '/talep',
   getParentRoute: () => rootRouteImport,
 } as any)
+const YoneticiRoute = YoneticiRouteImport.update({
+  id: '/yonetici',
+  path: '/yonetici',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/geri-bildirim': typeof GeriBildirimRoute
+  '/gonullu': typeof GonulluRoute
+  '/nasil-calisir': typeof NasilCalisirRoute
+  '/sss': typeof SssRoute
   '/takip': typeof TakipRoute
   '/talep': typeof TalepRoute
+  '/yonetici': typeof YoneticiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/geri-bildirim': typeof GeriBildirimRoute
+  '/gonullu': typeof GonulluRoute
+  '/nasil-calisir': typeof NasilCalisirRoute
+  '/sss': typeof SssRoute
   '/takip': typeof TakipRoute
   '/talep': typeof TalepRoute
+  '/yonetici': typeof YoneticiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/geri-bildirim': typeof GeriBildirimRoute
+  '/gonullu': typeof GonulluRoute
+  '/nasil-calisir': typeof NasilCalisirRoute
+  '/sss': typeof SssRoute
   '/takip': typeof TakipRoute
   '/talep': typeof TalepRoute
+  '/yonetici': typeof YoneticiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/takip' | '/talep'
+  fullPaths:
+    | '/'
+    | '/geri-bildirim'
+    | '/gonullu'
+    | '/nasil-calisir'
+    | '/sss'
+    | '/takip'
+    | '/talep'
+    | '/yonetici'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/takip' | '/talep'
-  id: '__root__' | '/' | '/takip' | '/talep'
+  to:
+    | '/'
+    | '/geri-bildirim'
+    | '/gonullu'
+    | '/nasil-calisir'
+    | '/sss'
+    | '/takip'
+    | '/talep'
+    | '/yonetici'
+  id:
+    | '__root__'
+    | '/'
+    | '/geri-bildirim'
+    | '/gonullu'
+    | '/nasil-calisir'
+    | '/sss'
+    | '/takip'
+    | '/talep'
+    | '/yonetici'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GeriBildirimRoute: typeof GeriBildirimRoute
+  GonulluRoute: typeof GonulluRoute
+  NasilCalisirRoute: typeof NasilCalisirRoute
+  SssRoute: typeof SssRoute
   TakipRoute: typeof TakipRoute
   TalepRoute: typeof TalepRoute
+  YoneticiRoute: typeof YoneticiRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +141,34 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/geri-bildirim': {
+      id: '/geri-bildirim'
+      path: '/geri-bildirim'
+      fullPath: '/geri-bildirim'
+      preLoaderRoute: typeof GeriBildirimRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gonullu': {
+      id: '/gonullu'
+      path: '/gonullu'
+      fullPath: '/gonullu'
+      preLoaderRoute: typeof GonulluRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nasil-calisir': {
+      id: '/nasil-calisir'
+      path: '/nasil-calisir'
+      fullPath: '/nasil-calisir'
+      preLoaderRoute: typeof NasilCalisirRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sss': {
+      id: '/sss'
+      path: '/sss'
+      fullPath: '/sss'
+      preLoaderRoute: typeof SssRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/takip': {
@@ -82,13 +185,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TalepRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/yonetici': {
+      id: '/yonetici'
+      path: '/yonetici'
+      fullPath: '/yonetici'
+      preLoaderRoute: typeof YoneticiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GeriBildirimRoute: GeriBildirimRoute,
+  GonulluRoute: GonulluRoute,
+  NasilCalisirRoute: NasilCalisirRoute,
+  SssRoute: SssRoute,
   TakipRoute: TakipRoute,
   TalepRoute: TalepRoute,
+  YoneticiRoute: YoneticiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

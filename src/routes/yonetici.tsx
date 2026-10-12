@@ -26,7 +26,9 @@ const TABS = ["Talepler", "Gönüllü başvuruları", "Şikâyetler", "Tamamlana
 
 function Admin() {
   const [tab, setTab] = useState<(typeof TABS)[number]>("Talepler");
-  const { requests, volunteers, complaints } = useStore((s) => ({ requests: s.requests, volunteers: s.volunteers, complaints: s.complaints }));
+  const requests = useStore((s) => s.requests);
+  const volunteers = useStore((s) => s.volunteers);
+  const complaints = useStore((s) => s.complaints);
   const updV = (id: string, p: Partial<Volunteer>) => setState((s) => ({ volunteers: s.volunteers.map((v) => (v.id === id ? { ...v, ...p } : v)) }));
   const updC = (id: string, p: Partial<Complaint>) => setState((s) => ({ complaints: s.complaints.map((c) => (c.id === id ? { ...c, ...p } : c)) }));
   const vName = (id?: string) => volunteers.find((v) => v.id === id)?.name ?? "—";
