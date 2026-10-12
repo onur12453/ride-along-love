@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TakipRouteImport } from './routes/takip'
+import { Route as TalepRouteImport } from './routes/talep'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TakipRoute = TakipRouteImport.update({
+  id: '/takip',
+  path: '/takip',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TalepRoute = TalepRouteImport.update({
+  id: '/talep',
+  path: '/talep',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/takip': typeof TakipRoute
+  '/talep': typeof TalepRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/takip': typeof TakipRoute
+  '/talep': typeof TalepRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/takip': typeof TakipRoute
+  '/talep': typeof TalepRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/takip' | '/talep'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/takip' | '/talep'
+  id: '__root__' | '/' | '/takip' | '/talep'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TakipRoute: typeof TakipRoute
+  TalepRoute: typeof TalepRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/takip': {
+      id: '/takip'
+      path: '/takip'
+      fullPath: '/takip'
+      preLoaderRoute: typeof TakipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/talep': {
+      id: '/talep'
+      path: '/talep'
+      fullPath: '/talep'
+      preLoaderRoute: typeof TalepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TakipRoute: TakipRoute,
+  TalepRoute: TalepRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
