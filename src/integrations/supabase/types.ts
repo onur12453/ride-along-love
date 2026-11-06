@@ -103,6 +103,42 @@ export type Database = {
           },
         ]
       }
+      document_access_logs: {
+        Row: {
+          actor_id: string
+          created_at: string
+          document_id: string
+          id: number
+        }
+        Insert: {
+          actor_id: string
+          created_at?: string
+          document_id: string
+          id?: never
+        }
+        Update: {
+          actor_id?: string
+          created_at?: string
+          document_id?: string
+          id?: never
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_access_logs_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "document_access_logs_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "volunteer_documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           accessibility_needs: string | null
@@ -288,6 +324,72 @@ export type Database = {
         }
         Relationships: []
       }
+      volunteer_documents: {
+        Row: {
+          consent_at: string | null
+          created_at: string
+          document_type: Database["public"]["Enums"]["document_kind"]
+          id: string
+          mime_type: string
+          original_name: string
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          size_bytes: number
+          status: Database["public"]["Enums"]["review_status"]
+          storage_path: string
+          updated_at: string
+          volunteer_id: string
+        }
+        Insert: {
+          consent_at?: string | null
+          created_at?: string
+          document_type: Database["public"]["Enums"]["document_kind"]
+          id?: string
+          mime_type: string
+          original_name: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          size_bytes: number
+          status?: Database["public"]["Enums"]["review_status"]
+          storage_path: string
+          updated_at?: string
+          volunteer_id: string
+        }
+        Update: {
+          consent_at?: string | null
+          created_at?: string
+          document_type?: Database["public"]["Enums"]["document_kind"]
+          id?: string
+          mime_type?: string
+          original_name?: string
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          size_bytes?: number
+          status?: Database["public"]["Enums"]["review_status"]
+          storage_path?: string
+          updated_at?: string
+          volunteer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "volunteer_documents_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "volunteer_documents_volunteer_id_fkey"
+            columns: ["volunteer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       volunteer_service_areas: {
         Row: {
           city: string
@@ -325,6 +427,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      accept_ride: { Args: { p_request_id: string }; Returns: undefined }
       cancel_ride: { Args: { p_request_id: string }; Returns: undefined }
       complete_ride: { Args: { p_request_id: string }; Returns: undefined }
       confirm_ride: { Args: { p_request_id: string }; Returns: undefined }
@@ -367,8 +470,27 @@ export type Database = {
           wheelchair: boolean
         }[]
       }
+      log_document_access: {
+        Args: { p_document_id: string }
+        Returns: undefined
+      }
+      review_document: {
+        Args: {
+          p_document_id: string
+          p_reason?: string
+          p_status: Database["public"]["Enums"]["review_status"]
+        }
+        Returns: undefined
+      }
       set_complaint_status: {
         Args: { p_complaint_id: string; p_status: string }
+        Returns: undefined
+      }
+      set_volunteer_status: {
+        Args: {
+          p_status: Database["public"]["Enums"]["review_status"]
+          p_volunteer_id: string
+        }
         Returns: undefined
       }
       update_own_profile: {

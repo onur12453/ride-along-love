@@ -8,6 +8,13 @@
       "when": 1793980246982,
       "tag": "0000_secure_accounts_and_ride_requests",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793980275046,
+      "tag": "0001_private_volunteer_documents_and_approval",
+      "breakpoints": true
     }
   ]
 }
