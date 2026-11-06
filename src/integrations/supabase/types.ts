@@ -14,16 +14,391 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audit_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          entity_id: string
+          entity_type: string
+          id: number
+          metadata: Json
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          entity_id: string
+          entity_type: string
+          id?: never
+          metadata?: Json
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          entity_id?: string
+          entity_type?: string
+          id?: never
+          metadata?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_logs_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      complaints: {
+        Row: {
+          author_id: string
+          created_at: string
+          id: string
+          message: string
+          ride_id: string | null
+          status: string
+          subject: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          created_at?: string
+          id?: string
+          message: string
+          ride_id?: string | null
+          status?: string
+          subject: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          created_at?: string
+          id?: string
+          message?: string
+          ride_id?: string | null
+          status?: string
+          subject?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "complaints_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "complaints_ride_id_fkey"
+            columns: ["ride_id"]
+            isOneToOne: false
+            referencedRelation: "ride_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          accessibility_needs: string | null
+          avatar_path: string | null
+          average_rating: number
+          city: string | null
+          created_at: string
+          display_name: string | null
+          district: string | null
+          full_name: string
+          has_vehicle: boolean
+          id: string
+          phone: string | null
+          training_passed: boolean
+          updated_at: string
+          username: string
+          volunteer_status: Database["public"]["Enums"]["review_status"]
+        }
+        Insert: {
+          accessibility_needs?: string | null
+          avatar_path?: string | null
+          average_rating?: number
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          district?: string | null
+          full_name: string
+          has_vehicle?: boolean
+          id: string
+          phone?: string | null
+          training_passed?: boolean
+          updated_at?: string
+          username: string
+          volunteer_status?: Database["public"]["Enums"]["review_status"]
+        }
+        Update: {
+          accessibility_needs?: string | null
+          avatar_path?: string | null
+          average_rating?: number
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          district?: string | null
+          full_name?: string
+          has_vehicle?: boolean
+          id?: string
+          phone?: string | null
+          training_passed?: boolean
+          updated_at?: string
+          username?: string
+          volunteer_status?: Database["public"]["Enums"]["review_status"]
+        }
+        Relationships: []
+      }
+      ride_private_details: {
+        Row: {
+          from_address: string
+          note: string | null
+          ride_id: string
+          special_needs: string | null
+          to_address: string
+        }
+        Insert: {
+          from_address: string
+          note?: string | null
+          ride_id: string
+          special_needs?: string | null
+          to_address: string
+        }
+        Update: {
+          from_address?: string
+          note?: string | null
+          ride_id?: string
+          special_needs?: string | null
+          to_address?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ride_private_details_ride_id_fkey"
+            columns: ["ride_id"]
+            isOneToOne: true
+            referencedRelation: "ride_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ride_requests: {
+        Row: {
+          companion: boolean
+          created_at: string
+          from_city: string
+          from_district: string
+          id: string
+          passenger_completed: boolean
+          passenger_id: string
+          passenger_ok: boolean
+          ride_date: string
+          ride_time: string
+          status: Database["public"]["Enums"]["ride_status"]
+          to_city: string
+          to_district: string
+          updated_at: string
+          volunteer_completed: boolean
+          volunteer_id: string | null
+          volunteer_ok: boolean
+          wheelchair: boolean
+        }
+        Insert: {
+          companion?: boolean
+          created_at?: string
+          from_city: string
+          from_district: string
+          id?: string
+          passenger_completed?: boolean
+          passenger_id: string
+          passenger_ok?: boolean
+          ride_date: string
+          ride_time: string
+          status?: Database["public"]["Enums"]["ride_status"]
+          to_city: string
+          to_district: string
+          updated_at?: string
+          volunteer_completed?: boolean
+          volunteer_id?: string | null
+          volunteer_ok?: boolean
+          wheelchair?: boolean
+        }
+        Update: {
+          companion?: boolean
+          created_at?: string
+          from_city?: string
+          from_district?: string
+          id?: string
+          passenger_completed?: boolean
+          passenger_id?: string
+          passenger_ok?: boolean
+          ride_date?: string
+          ride_time?: string
+          status?: Database["public"]["Enums"]["ride_status"]
+          to_city?: string
+          to_district?: string
+          updated_at?: string
+          volunteer_completed?: boolean
+          volunteer_id?: string | null
+          volunteer_ok?: boolean
+          wheelchair?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ride_requests_passenger_id_fkey"
+            columns: ["passenger_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ride_requests_volunteer_id_fkey"
+            columns: ["volunteer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      volunteer_service_areas: {
+        Row: {
+          city: string
+          created_at: string
+          district: string
+          id: string
+          volunteer_id: string
+        }
+        Insert: {
+          city: string
+          created_at?: string
+          district: string
+          id?: string
+          volunteer_id: string
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          district?: string
+          id?: string
+          volunteer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "volunteer_service_areas_volunteer_id_fkey"
+            columns: ["volunteer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      cancel_ride: { Args: { p_request_id: string }; Returns: undefined }
+      complete_ride: { Args: { p_request_id: string }; Returns: undefined }
+      confirm_ride: { Args: { p_request_id: string }; Returns: undefined }
+      create_ride_request: {
+        Args: {
+          p_companion: boolean
+          p_from_address: string
+          p_from_city: string
+          p_from_district: string
+          p_note: string
+          p_ride_date: string
+          p_ride_time: string
+          p_special_needs: string
+          p_to_address: string
+          p_to_city: string
+          p_to_district: string
+          p_wheelchair: boolean
+        }
+        Returns: string
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      list_open_rides: {
+        Args: never
+        Returns: {
+          companion: boolean
+          created_at: string
+          from_city: string
+          from_district: string
+          id: string
+          ride_date: string
+          ride_time: string
+          to_city: string
+          to_district: string
+          wheelchair: boolean
+        }[]
+      }
+      set_complaint_status: {
+        Args: { p_complaint_id: string; p_status: string }
+        Returns: undefined
+      }
+      update_own_profile: {
+        Args: {
+          p_accessibility_needs: string
+          p_avatar_path?: string
+          p_city: string
+          p_display_name: string
+          p_district: string
+          p_has_vehicle: boolean
+          p_phone: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "yolcu" | "gonullu" | "yonetici" | "belge_denetci"
+      document_kind:
+        | "kimlik_on"
+        | "kimlik_arka"
+        | "ehliyet"
+        | "ruhsat"
+        | "adli_sicil"
+      review_status: "beklemede" | "onaylandi" | "reddedildi"
+      ride_status:
+        | "olusturuldu"
+        | "gonullu_bulundu"
+        | "onaylandi"
+        | "tamamlandi"
+        | "iptal_edildi"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +525,23 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["yolcu", "gonullu", "yonetici", "belge_denetci"],
+      document_kind: [
+        "kimlik_on",
+        "kimlik_arka",
+        "ehliyet",
+        "ruhsat",
+        "adli_sicil",
+      ],
+      review_status: ["beklemede", "onaylandi", "reddedildi"],
+      ride_status: [
+        "olusturuldu",
+        "gonullu_bulundu",
+        "onaylandi",
+        "tamamlandi",
+        "iptal_edildi",
+      ],
+    },
   },
 } as const

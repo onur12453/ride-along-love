@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1793980246982,
+      "tag": "0000_secure_accounts_and_ride_requests",
+      "breakpoints": true
+    }
+  ]
 }
