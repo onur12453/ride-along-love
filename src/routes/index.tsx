@@ -6,6 +6,8 @@ import { useStore } from "@/lib/store";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Engelsiz Yol — Engelsiz Yolculuk, Birlikte Mümkün!" },
       { name: "description", content: "Gönüllülerle engelleri aş, ücretsiz ve erişilebilir ulaşım desteğiyle hayata katıl." },
       { property: "og:title", content: "Engelsiz Yol — Ücretsiz Erişilebilir Ulaşım" },

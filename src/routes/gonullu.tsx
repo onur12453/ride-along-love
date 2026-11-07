@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { HeartHandshake, ShieldCheck, Check } from "lucide-react";
@@ -7,6 +8,8 @@ import { useStore, setState, DAYS, DISTRICTS, STATUS_LABEL, maskAddress, type Ri
 export const Route = createFileRoute("/gonullu")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Gönüllü Sürücü Paneli — Engelsiz Yol" },
       { name: "description", content: "Gönüllü sürücü olun, yakındaki ücretsiz ulaşım taleplerini üstlenin." },
       { property: "og:title", content: "Gönüllü Ol — Engelsiz Yol" },
@@ -23,9 +26,9 @@ export const Route = createFileRoute("/gonullu")({
 
 function Chip({ on, label, onClick }: { on: boolean; label: string; onClick: () => void }) {
   return (
-    <button type="button" aria-pressed={on} onClick={onClick} className={`px-4 py-2 rounded-xl border-2 font-semibold ${on ? "bg-primary text-primary-foreground border-primary" : "bg-card"}`}>
+    <Button variant="legacy" size="legacy" type="button" aria-pressed={on} onClick={onClick} className={`px-4 py-2 rounded-xl border-2 font-semibold ${on ? "bg-primary text-primary-foreground border-primary" : "bg-card"}`}>
       {on && <Check className="inline size-4 mr-1" aria-hidden />}{label}
-    </button>
+    </Button>
   );
 }
 
@@ -44,11 +47,13 @@ function RideCard({ r, children }: { r: RideRequest; children?: React.ReactNode 
 
 function Panel() {
   const meId = useStore((s) => s.meVolunteerId);
-  const me = useStore((s) => s.volunteers.find((v) => v.id === s.meVolunteerId))!;
+  const me = useStore((s) => s.volunteers.find((v) => v.id === s.meVolunteerId));
   const requests = useStore((s) => s.requests);
   const updMe = (p: Partial<typeof me>) => setState((s) => ({ volunteers: s.volunteers.map((v) => (v.id === meId ? { ...v, ...p } : v)) }));
   const toggle = (arr: string[], x: string) => (arr.includes(x) ? arr.filter((a) => a !== x) : [...arr, x]);
   const updReq = (id: string, fn: (r: RideRequest) => RideRequest) => setState((s) => ({ requests: s.requests.map((r) => (r.id === id ? fn(r) : r)) }));
+
+  if (!me) return <p className="mx-auto max-w-7xl px-4 py-10">Gönüllü profili bulunamadı.</p>;
 
   const open = requests.filter((r) => r.status === "olusturuldu").sort((a, b) => Number(me.regions.includes(b.fromDistrict)) - Number(me.regions.includes(a.fromDistrict)));
   const mine = requests.filter((r) => r.volunteerId === meId && r.status !== "tamamlandi");
@@ -94,9 +99,9 @@ function Panel() {
             return (
               <RideCard key={r.id} r={r}>
                 {me.regions.includes(r.fromDistrict) && <span className="text-success font-bold">📍 Bölgenizde</span>}
-                <button disabled={blocked} className="btn btn-accent mt-2" onClick={() => { updReq(r.id, (x) => ({ ...x, status: "gonullu_bulundu", volunteerId: meId })); toast.success("Talebi üstlendiniz. Yolcunun onayı bekleniyor."); }}>
+                <Button variant="legacy" size="legacy" disabled={blocked} className="btn btn-accent mt-2" onClick={() => { updReq(r.id, (x) => ({ ...x, status: "gonullu_bulundu", volunteerId: meId })); toast.success("Talebi üstlendiniz. Yolcunun onayı bekleniyor."); }}>
                   Bu talebi üstlen
-                </button>
+                </Button>
                 {r.wheelchair && !me.wheelchairCar && <p className="text-sm text-destructive">Bu yolculuk tekerlekli sandalye uyumlu araç gerektirir.</p>}
               </RideCard>
             );
@@ -110,10 +115,10 @@ function Panel() {
           {mine.map((r) => (
             <RideCard key={r.id} r={r}>
               <p className="text-sm">Karşılıklı onay — Yolcu: {r.passengerOk ? "✔" : "bekleniyor"} · Siz: {r.volunteerOk ? "✔" : "bekleniyor"}</p>
-              {!r.volunteerOk && <button className="btn btn-primary" onClick={() => updReq(r.id, (x) => ({ ...x, volunteerOk: true, status: x.passengerOk ? "onaylandi" : x.status }))}>Yolculuğu onayla</button>}
-              {r.volunteerOk && !r.passengerOk && <button className="btn btn-outline" onClick={() => { updReq(r.id, (x) => ({ ...x, passengerOk: true, status: "onaylandi" })); toast("Demo: yolcu onayı simüle edildi."); }}>Demo: yolcu onayını simüle et</button>}
-              {r.status === "onaylandi" && <button className="btn btn-accent" onClick={() => { updReq(r.id, (x) => ({ ...x, status: "tamamlandi" })); toast.success("Yolculuk tamamlandı. Teşekkürler! 💚"); }}>Tamamlandı olarak işaretle</button>}
-              <button className="btn text-destructive" onClick={() => updReq(r.id, (x) => ({ ...x, status: "olusturuldu", volunteerId: undefined, volunteerOk: false, passengerOk: false }))}>Bırak</button>
+              {!r.volunteerOk && <Button variant="legacy" size="legacy" className="btn btn-primary" onClick={() => updReq(r.id, (x) => ({ ...x, volunteerOk: true, status: x.passengerOk ? "onaylandi" : x.status }))}>Yolculuğu onayla</Button>}
+              {r.volunteerOk && !r.passengerOk && <Button variant="legacy" size="legacy" className="btn btn-outline" onClick={() => { updReq(r.id, (x) => ({ ...x, passengerOk: true, status: "onaylandi" })); toast("Demo: yolcu onayı simüle edildi."); }}>Demo: yolcu onayını simüle et</Button>}
+              {r.status === "onaylandi" && <Button variant="legacy" size="legacy" className="btn btn-accent" onClick={() => { updReq(r.id, (x) => ({ ...x, status: "tamamlandi" })); toast.success("Yolculuk tamamlandı. Teşekkürler! 💚"); }}>Tamamlandı olarak işaretle</Button>}
+              <Button variant="legacy" size="legacy" className="btn text-destructive" onClick={() => updReq(r.id, (x) => ({ ...x, status: "olusturuldu", volunteerId: undefined, volunteerOk: false, passengerOk: false }))}>Bırak</Button>
             </RideCard>
           ))}
         </div>

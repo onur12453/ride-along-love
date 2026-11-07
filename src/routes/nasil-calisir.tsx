@@ -5,6 +5,8 @@ import { PageHeader } from "@/components/Layout";
 export const Route = createFileRoute("/nasil-calisir")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Bu Proje Nasıl Çalışır? — Engelsiz Yol" },
       { name: "description", content: "Yolcu, gönüllü ve yönetici rolleriyle Engelsiz Yol'un işleyişi ve güvenlik sistemi." },
       { property: "og:title", content: "Bu Proje Nasıl Çalışır? — Engelsiz Yol" },

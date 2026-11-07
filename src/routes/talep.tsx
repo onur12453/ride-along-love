@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
@@ -9,6 +10,8 @@ import { DISTRICTS, setState, uid, type RideRequest } from "@/lib/store";
 export const Route = createFileRoute("/talep")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Ücretsiz Ulaşım Talebi — Engelsiz Yol" },
       { name: "description", content: "Erişilebilir ve ücretsiz yolculuk için talep oluşturun." },
       { property: "og:title", content: "Ücretsiz Ulaşım Talebi — Engelsiz Yol" },
@@ -95,7 +98,7 @@ function Talep() {
           <div><label htmlFor="sp" className="font-bold text-lg">Araçta özel bir erişilebilirlik ihtiyacı var mı?</label><input id="sp" className="field mt-1" value={f.special} onChange={up("special")} placeholder="Örn: Rampa, rehber köpek, alçak basamak" /></div>
           <YesNo name="cp" label="Refakatçi ile seyahat edilecek mi?" value={companion} onChange={setC} />
           <div><label htmlFor="note" className="font-bold text-lg">Ek açıklama <span className="font-normal text-muted-foreground">(isteğe bağlı)</span></label><textarea id="note" rows={3} className="field mt-1" value={f.note} onChange={up("note")} maxLength={500} /></div>
-          <button type="submit" className="btn btn-primary text-xl !py-5">Ulaşım Talebi Oluştur</button>
+          <Button variant="legacy" size="legacy" type="submit" className="btn btn-primary text-xl !py-5">Ulaşım Talebi Oluştur</Button>
         </form>
       </div>
     </>

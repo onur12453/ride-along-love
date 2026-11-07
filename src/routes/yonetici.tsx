@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -8,6 +9,8 @@ import { useStore, setState, STATUS_LABEL, type Volunteer, type Complaint } from
 export const Route = createFileRoute("/yonetici")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Yönetici Paneli — Engelsiz Yol" },
       { name: "description", content: "Talepleri, gönüllü başvurularını ve şikâyetleri yönetin." },
       { property: "og:title", content: "Yönetici Paneli — Engelsiz Yol" },
@@ -46,7 +49,7 @@ function Admin() {
         {stats.map(([l, n]) => <div key={l} className="card p-5"><p className="text-3xl font-bold">{n}</p><p className="text-muted-foreground">{l}</p></div>)}
       </div>
       <div role="tablist" aria-label="Yönetici bölümleri" className="flex flex-wrap gap-2">
-        {TABS.map((t) => <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)} className={`btn !min-h-10 !py-2 ${tab === t ? "btn-primary" : "btn-outline"}`}>{t}</button>)}
+        {TABS.map((t) => <Button variant="legacy" size="legacy" key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)} className={`btn !min-h-10 !py-2 ${tab === t ? "btn-primary" : "btn-outline"}`}>{t}</Button>)}
       </div>
 
       <div role="tabpanel" className="card p-4 md:p-6 overflow-x-auto">
@@ -59,7 +62,7 @@ function Admin() {
                 <tr key={r.id} className="border-b last:border-0">
                   <td className="p-2 font-bold">{r.id}</td><td className="p-2">{r.passenger}</td><td className="p-2">{r.fromDistrict} → {r.toDistrict}</td>
                   <td className="p-2">{r.date} {r.time}</td><td className="p-2">{vName(r.volunteerId)}</td><td className="p-2">{STATUS_LABEL[r.status]}</td>
-                  <td className="p-2"><button className="text-destructive font-bold underline" onClick={() => { setState((s) => ({ requests: s.requests.filter((x) => x.id !== r.id) })); toast("Talep kaldırıldı."); }}>Kaldır</button></td>
+                  <td className="p-2"><Button variant="legacy" size="legacy" className="text-destructive font-bold underline" onClick={() => { setState((s) => ({ requests: s.requests.filter((x) => x.id !== r.id) })); toast("Talep kaldırıldı."); }}>Kaldır</Button></td>
                 </tr>
               ))}
             </tbody>
@@ -76,8 +79,8 @@ function Admin() {
                   <label key={k} className="flex items-center gap-2"><input type="checkbox" className="size-5 accent-primary" checked={v[k]} onChange={(e) => updV(v.id, { [k]: e.target.checked })} />{l} doğrulandı</label>
                 ))}
                 <div className="flex gap-2 mt-2">
-                  <button className="btn btn-accent flex-1 !min-h-10 !py-2" disabled={!(v.idChecked && v.licenseChecked && v.recordChecked)} onClick={() => { updV(v.id, { status: "onayli" }); toast.success("Gönüllü onaylandı."); }}>Onayla</button>
-                  <button className="btn btn-danger flex-1 !min-h-10 !py-2" onClick={() => updV(v.id, { status: "reddedildi" })}>Reddet</button>
+                  <Button variant="legacy" size="legacy" className="btn btn-accent flex-1 !min-h-10 !py-2" disabled={!(v.idChecked && v.licenseChecked && v.recordChecked)} onClick={() => { updV(v.id, { status: "onayli" }); toast.success("Gönüllü onaylandı."); }}>Onayla</Button>
+                  <Button variant="legacy" size="legacy" className="btn btn-danger flex-1 !min-h-10 !py-2" onClick={() => updV(v.id, { status: "reddedildi" })}>Reddet</Button>
                 </div>
               </article>
             ))}
