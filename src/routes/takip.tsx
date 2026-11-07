@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -9,6 +10,8 @@ export const Route = createFileRoute("/takip")({
   validateSearch: z.object({ id: z.string().optional() }),
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Yolculuk Takibi — Engelsiz Yol" },
       { name: "description", content: "Ulaşım talebinizin durumunu adım adım takip edin." },
       { property: "og:title", content: "Yolculuk Takibi — Engelsiz Yol" },
@@ -108,7 +111,7 @@ function Takip() {
               <div className="rounded-2xl bg-secondary p-4">
                 <p className="font-bold">Karşılıklı onay</p>
                 <p>Yolcu: {r.passengerOk ? "✔ Onayladı" : "Bekleniyor"} · Gönüllü: {r.volunteerOk ? "✔ Onayladı" : "Bekleniyor"}</p>
-                {!r.passengerOk && <button className="btn btn-primary mt-3 w-full" onClick={confirmPassenger}>Yolculuğu onaylıyorum</button>}
+                {!r.passengerOk && <Button variant="legacy" size="legacy" className="btn btn-primary mt-3 w-full" onClick={confirmPassenger}>Yolculuğu onaylıyorum</Button>}
               </div>
             )}
           </div>

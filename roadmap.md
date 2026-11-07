@@ -1,5 +1,8 @@
 # Engelsiz Yol integration
 
+- [ ] Apply the uploaded Duna warm visual system to all existing screens without changing operations or permissions.
+- [ ] Verify redesigned pages, existing form flow and mobile navigation on desktop and mobile.
+
 - [ ] Confirm profile/account setup, training video source and emergency notification destination.
 - [ ] Replace demo-only operational storage and role switching with real accounts, authorization and persistent records without changing existing design or removing workflows.
 - [ ] Integrate 15-minute training, 10-question test, 80% passing gate and certificates.

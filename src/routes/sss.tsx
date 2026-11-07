@@ -5,6 +5,8 @@ import { PageHeader } from "@/components/Layout";
 export const Route = createFileRoute("/sss")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Sık Sorulan Sorular — Engelsiz Yol" },
       { name: "description", content: "Ücretsiz erişilebilir ulaşım ve gönüllülük hakkında sık sorulan sorular." },
       { property: "og:title", content: "Sık Sorulan Sorular — Engelsiz Yol" },

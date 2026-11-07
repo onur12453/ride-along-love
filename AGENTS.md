@@ -10,7 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Application architecture
-- Keep the existing public URLs and visual shell; authenticated operations use Cloud-backed server functions so browser role switching cannot grant permissions.
+- Keep existing public URLs and operational behavior during presentation work; share warm semantic CSS tokens and design-system buttons across screens so visual updates do not alter permissions or data flows.
 - Store business records in explicit RLS-protected tables and validate transitions in database RPCs; the browser store is a read cache, not an authority.
 - Keep message encryption keys in managed secrets and decrypt only after participant-scoped reads; never store plaintext message bodies.
 - Training tests remain locked until a real configured video and verified viewing progress exist; certificates represent platform completion, not official professional accreditation.

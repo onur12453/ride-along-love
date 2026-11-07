@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
@@ -9,6 +10,8 @@ import { setState, uid, type Complaint } from "@/lib/store";
 export const Route = createFileRoute("/geri-bildirim")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Şikâyet ve Geri Bildirim — Engelsiz Yol" },
       { name: "description", content: "Yolculuklarınızla ilgili şikâyet veya geri bildirim gönderin." },
       { property: "og:title", content: "Şikâyet ve Geri Bildirim — Engelsiz Yol" },
@@ -49,7 +52,7 @@ function Page() {
           <div><label htmlFor="s" className="font-bold text-lg">Konu</label><input id="s" className="field mt-1" value={subject} onChange={(e) => setS(e.target.value)} maxLength={100} /></div>
           <div><label htmlFor="m" className="font-bold text-lg">Mesajınız</label><textarea id="m" rows={5} className="field mt-1" value={message} onChange={(e) => setM(e.target.value)} maxLength={1000} /></div>
           {err && <p role="alert" className="text-destructive font-bold">{err}</p>}
-          <button className="btn btn-primary text-lg">Gönder</button>
+          <Button variant="legacy" size="legacy" className="btn btn-primary text-lg">Gönder</Button>
         </div>
       </form>
     </>
