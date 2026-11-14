@@ -1,7 +1,8 @@
 # Engelsiz Yol integration
 
-- [ ] Apply the uploaded Duna warm visual system to all existing screens without changing operations or permissions.
-- [ ] Verify redesigned pages, existing form flow and mobile navigation on desktop and mobile.
+- [x] Apply the uploaded Duna warm visual system to all existing screens without changing operations or permissions.
+- [x] Verify redesigned pages, existing form flow and mobile navigation on desktop and mobile.
+- [x] Finish only outstanding redesign checks; do not repeat completed work or generate more images.
 
 - [ ] Confirm profile/account setup, training video source and emergency notification destination.
 - [ ] Replace demo-only operational storage and role switching with real accounts, authorization and persistent records without changing existing design or removing workflows.
